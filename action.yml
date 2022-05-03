@@ -7,6 +7,9 @@ inputs:
   serviceAccount:
     description: 'Firebase service account'
     required: true
+  GITHUB_TOKEN:
+    description: 'secrets.GITHUB_TOKEN'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -19,7 +22,7 @@ runs:
         restore-keys: npm-${{ runner.os }}
     - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
-        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        repoToken: '${{ inputs.GITHUB_TOKEN }}'
         firebaseServiceAccount: '${{ inputs.serviceAccount }}'
         channelId: live
         projectId: '${{ inputs.projectId }}'
