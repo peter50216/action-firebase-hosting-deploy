@@ -1,0 +1,25 @@
+name: 'Deploy to firebase hosting'
+description: 'Deploy to firebase hosting with npm cache'
+inputs:
+  projectId:
+    description: 'Firebase project ID'
+    required: true
+  serviceAccount:
+    description: 'Firebase service account'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    # Used by FirebaseExtended/action-hosting-deploy which use npx
+    - name: Cache npm modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: npm-${{ runner.os }}-${{ hashFiles('.github/**/*.yml') }}
+        restore-keys: npm-${{ runner.os }}
+    - uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ inputs.serviceAccount }}'
+        channelId: live
+        projectId: '${{ inputs.projectId }}'
