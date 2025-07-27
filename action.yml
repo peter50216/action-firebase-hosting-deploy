@@ -16,7 +16,7 @@ runs:
     # Used by FirebaseExtended/action-hosting-deploy which use npx
     - uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '22'
         cache: 'npm'
         cache-dependency-path: '.github/workflows/*.yml'
     - uses: FirebaseExtended/action-hosting-deploy@v0
